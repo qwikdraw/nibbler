@@ -12,7 +12,7 @@
 
 NAME = nibbler
 LIST = main \
-GraphicLoader
+Graphic
 
 SRC_DIR = src
 OBJ_DIR = obj

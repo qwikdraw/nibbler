@@ -1,6 +1,5 @@
-#include "IGraphic.hpp"
 #include <iostream>
-#include "GraphicLoader.hpp"
+#include "Graphic.hpp"
 
 int	main(int argc, char** argv)
 {
@@ -21,13 +20,13 @@ int	main(int argc, char** argv)
 	}
 
 
-	IGraphic *graphic = GraphicLoader(OPENGL, mapsize);
+	Graphic graphic(mapsize);
 
 	while (1)
 	{
-		graphic->Draw(glm::ivec2(5, 5), '0');
-		graphic->Clear();
-		Input input = graphic->Input();
+		graphic.Draw(glm::ivec2(5, 5), '0');
+		graphic.Clear();
+		Input input = graphic.Input();
 		if (input.close)
 			break;
 	}
