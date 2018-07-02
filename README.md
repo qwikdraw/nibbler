@@ -20,6 +20,16 @@ public:
 	virtual Input Input(void) = 0;
 };
 ```
+and each dynamic library must provide an extern function like so:
+```
+extern "C" IGraphic* load(void) 
+{
+	return (new <Graphic>());
+}
+```
+where <Graphic> is the name of the `IGraphic` implementing class.
+
+
 They are dynamically loaded through dlopen and dlsym  
 and can be switched live. 
 
