@@ -3,6 +3,7 @@
 Graphic::Graphic(glm::ivec2 mapsize) :
 _mapsize(mapsize)
 {
+	_graphic = NULL;
 	_handle = NULL;
 	_lib = NCURSES; // as long as it isnt same as argument for UseLib
 	UseLib(OPENGL);
@@ -40,6 +41,7 @@ void	Graphic::UseLib(Libs lib)
 		std::cerr << "dlsym error: " << dlerror() << std::endl;
 		exit(1);
 	}
+	delete _graphic;
 	_graphic = i(_mapsize);
 	_lib = lib;
 }
