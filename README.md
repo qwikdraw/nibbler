@@ -7,7 +7,7 @@ These plugins are used to provide differant rendering
 and input interfaces to a game of snake.
 
 ### Plugins
-Plugins implement the following interface: 
+Each Plugin implements the following interface: 
 
 ```c++
 class IGraphic
@@ -20,7 +20,7 @@ public:
 	virtual Input Input(void) = 0;
 };
 ```
-and each dynamic library must provide an extern function like so:
+Each dynamic library provides an extern function like so:
 ```c++
 extern "C" IGraphic* load(void) 
 {
@@ -30,8 +30,8 @@ extern "C" IGraphic* load(void)
 where `<Graphic>` is the name of the `IGraphic` implementing class.
 
 
-They are dynamically loaded through dlopen and dlsym  
-and can be switched live. 
+They are dynamically loaded through `dlopen` and `dlsym`  
+and can be switched live with the `1`, `2`, and `3` keys.
 
 
 ### Dependencies
