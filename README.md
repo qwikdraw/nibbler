@@ -1,10 +1,10 @@
 ## Nibbler - Swapable graphics plugin snake clone
 
-This project focuses on implementing simple plugin system in c++ 
+This project focuses on implementing simple plugin system in c++  
 using dynamic libraries. 
 
-These plugins are used to provide differant rendering 
-and input interfaces to a game of snake. 
+These plugins are used to provide differant rendering  
+and input interfaces to a game of snake.
 
 ### Plugins
 Plugins implement the following interface: 
@@ -20,14 +20,14 @@ public:
 	virtual Input Input(void) = 0;
 };
 ```
-They are dynamically loaded through dlopen and dlsym. 
+They are dynamically loaded through dlopen and dlsym  
 and can be switched live. 
 
 
 ### Dependencies
 `glfw3 opengl glm sfml` 
-On osx the deps.sh script will 
-install all dependencies through 
+On osx the deps.sh script will  
+install all dependencies through  
 brew.
 
 ### Building
