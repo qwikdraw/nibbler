@@ -3,9 +3,14 @@
 #include "CoreInclude.hpp"
 #include "Window.hpp"
 #include "Image2D.hpp"
-#include "Input.hpp"
+#include "../../src/IGraphic.hpp"
 
-class	GLRender
+extern "C"
+{
+	IGraphic* load_opengl(glm::ivec2 mapsize);
+}
+
+class	GLRender : public IGraphic
 {
 
 	Window _window;
@@ -20,7 +25,7 @@ public:
 	GLRender(glm::ivec2 mapsize);
 	~GLRender(void);
 	
-	void	Render(glm::ivec2 pos, char c);
+	void	Draw(glm::ivec2 pos, char c);
 	void	Clear(void);
-	Input	Input(void);
+	struct Input	Input(void);
 };
