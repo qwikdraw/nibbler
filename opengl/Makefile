@@ -10,8 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = nibbler
-LIST = main
+NAME = opengl.dylib
+LIST = GLRender \
+Image2D \
+ShadingProgram \
+Window \
+main \
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -19,22 +23,19 @@ OBJ_DIR = obj
 OBJ = $(addsuffix .o, $(addprefix $(OBJ_DIR)/, $(LIST)))
 DEP = $(OBJ:%.o=%.d)
 CC = clang++
-SUB = ncurses sfml opengl
 
 CPPFLAGS = -std=c++14 -Wall -Wextra -Werror \
--O3 -march=native -flto \
+$(shell pkg-config --cflags glm glfw3) \
+-O3 -march=native -flto -fPIC \
 #-g -fsanitize=address -fsanitize=undefined
 
-LDFLAGS = -flto \
+LDFLAGS = -flto -dynamiclib -framework OpenGl \
+$(shell pkg-config --libs glfw3) \
 #-fsanitize=address -fsanitize=undefined
 
 all: $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	@for s in $(SUB);\
-	do\
-		make -sC $$s;\
-	done
 	@printf "\e[32;1mLinking.. \e[0m\n"
 	@$(CC) $(LDFLAGS) -o $@ $^
 	@printf "\e[32;1mCreated:\e[0m %s\n" $(NAME)
@@ -49,18 +50,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@$(CC) $(CPPFLAGS) -MMD -c $< -o $@
 
 clean:
-	@for s in $(SUB);\
-	do\
-		make -sC $$s clean;\
-	done
 	@printf "\e[31;1mCleaning..\e[0m\n"
 	@rm -f $(OBJ) $(DEP)
 
 fclean:
-	@for s in $(SUB);\
-	do\
-		make -sC $$s fclean;\
-	done
 	@printf "\e[31;1mFull Cleaning..\e[0m\n"
 	@rm -rf $(OBJ_DIR)
 	@rm -f $(NAME)
