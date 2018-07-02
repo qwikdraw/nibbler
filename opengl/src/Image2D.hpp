@@ -1,7 +1,7 @@
 #pragma once
 
-#define SCREENIMAGE_VERTEX_SHADER_PATH "screenImageVertex.glsl"
-#define SCREENIMAGE_FRAGMENT_SHADER_PATH "screenImageFrag.glsl"
+#define SCREENIMAGE_VERTEX_SHADER_PATH "opengl/src/screenImageVertex.glsl"
+#define SCREENIMAGE_FRAGMENT_SHADER_PATH "opengl/src/screenImageFrag.glsl"
 
 #include "CoreInclude.hpp"
 #include "ShadingProgram.hpp"
