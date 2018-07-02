@@ -22,9 +22,9 @@ public:
 ```
 Each dynamic library provides an extern function like so:
 ```c++
-extern "C" IGraphic* load(void) 
+extern "C" IGraphic* load(glm::ivec2 dimensions) 
 {
-	return (new <Graphic>());
+	return (new <Graphic>(glm::ivec2 dimensions));
 }
 ```
 where `<Graphic>` is the name of the `IGraphic` implementing class.
