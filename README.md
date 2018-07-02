@@ -20,7 +20,7 @@ public:
 	virtual Input Input(void) = 0;
 };
 ```
-Each dynamic library must provides an extern function like so:
+Each dynamic library provides an extern function like so:
 ```c++
 extern "C" IGraphic* load(void) 
 {
