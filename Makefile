@@ -11,7 +11,8 @@
 # **************************************************************************** #
 
 NAME = nibbler
-LIST = main
+LIST = main \
+GraphicLoader
 
 SRC_DIR = src
 OBJ_DIR = obj
