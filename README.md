@@ -9,7 +9,7 @@ and input interfaces to a game of snake.
 ### Plugins
 Plugins implement the following interface: 
 
-```
+```c++
 class IGraphic
 {
 public:
@@ -21,7 +21,7 @@ public:
 };
 ```
 and each dynamic library must provide an extern function like so:
-```
+```c++
 extern "C" IGraphic* load(void) 
 {
 	return (new <Graphic>());
