@@ -10,14 +10,25 @@ and input interfaces to a game of snake.
 Each Plugin implements the following interface: 
 
 ```c++
+struct Input
+{
+    bool    left;
+    bool    right;
+    bool    close;
+    bool    one;
+    bool    two;
+    bool    three;
+};
+
 class IGraphic
 {
+protected:
+    IGraphic(void) {}
 public:
-	IGraphic(glm::ivec2 grid_size);
-	virtual ~IGraphic(void) = 0;
-	virtual void Draw(glm::ivec2, char) = 0;
-	virtual void Clear(void) = 0;
-	virtual Input Input(void) = 0;
+    virtual ~IGraphic(void) {};
+    virtual void Draw(glm::ivec2, char) = 0;
+    virtual void Clear(void) = 0;
+    virtual Input Input(void) = 0;
 };
 ```
 Each dynamic library provides an extern function like so:
