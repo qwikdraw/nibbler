@@ -7,7 +7,7 @@
 
 extern "C"
 {
-	IGraphic* load_opengl(glm::ivec2 mapsize);
+	IGraphic* load(glm::ivec2 mapsize);
 }
 
 class	GLRender : public IGraphic
@@ -26,6 +26,6 @@ public:
 	~GLRender(void);
 	
 	void	Draw(glm::ivec2 pos, char c);
-	void	Clear(void);
+	void	Display(void);
 	struct Input	Input(void);
 };

@@ -12,7 +12,6 @@
 
 NAME = nibbler
 LIST = main \
-Graphic \
 Game \
 Time
 

@@ -21,8 +21,7 @@ int	main(int argc, char** argv)
 
 	Game game(mapsize);
 	
-	while (game.ShouldRun())
+	while (game.running)
 		game.Run();
-	
 	return 0;
 }

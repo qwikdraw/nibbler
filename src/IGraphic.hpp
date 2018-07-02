@@ -23,6 +23,6 @@ protected:
 public:
 	virtual ~IGraphic(void) {};
 	virtual void Draw(glm::ivec2, char) = 0;
-	virtual void Clear(void) = 0;
+	virtual void Display(void) = 0;
 	virtual Input Input(void) = 0;
 };

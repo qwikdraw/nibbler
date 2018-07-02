@@ -1,11 +1,11 @@
 #include "GLRender.hpp"
 
-IGraphic	*load_opengl(glm::ivec2 mapsize)
+IGraphic	*load(glm::ivec2 mapsize)
 {
 	return new GLRender(mapsize);
 }
 
-GLRender::GLRender(glm::ivec2 mapsize) : _window(800, 800, "GLRender")
+GLRender::GLRender(glm::ivec2 mapsize) : _window(800, 800, "OpenGL")
 {
 	_data.resize(mapsize.x * mapsize.y * 4);
 	_width = mapsize.x;
@@ -33,7 +33,7 @@ void	GLRender::Draw(glm::ivec2 pos, char c)
 	std::memmove(&_data[i], &_colors[(unsigned char)c], 4);
 }
 
-void	GLRender::Clear(void)
+void	GLRender::Display(void)
 {
 	glClearColor(0.1, 0.15, 0.2, 1);
 	_window.Clear();
