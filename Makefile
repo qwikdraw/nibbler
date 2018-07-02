@@ -12,7 +12,9 @@
 
 NAME = nibbler
 LIST = main \
-Graphic
+Graphic \
+Game \
+Time
 
 SRC_DIR = src
 OBJ_DIR = obj

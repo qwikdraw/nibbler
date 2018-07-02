@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Graphic.hpp"
+#include "Game.hpp"
 
 int	main(int argc, char** argv)
 {
@@ -19,17 +19,10 @@ int	main(int argc, char** argv)
 		exit(1);
 	}
 
-
-	Graphic graphic(mapsize);
-
-	while (1)
-	{
-		graphic.Draw(glm::ivec2(5, 5), '0');
-		graphic.Clear();
-		Input input = graphic.Input();
-		if (input.close)
-			break;
-	}
+	Game game(mapsize);
+	
+	while (game.ShouldRun())
+		game.Run();
 	
 	return 0;
 }
