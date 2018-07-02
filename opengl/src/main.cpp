@@ -7,7 +7,7 @@ int	main(void)
 	
 	while (1)
 	{
-		window.Render(glm::ivec2(5, 5), 'o');
+		window.Draw(glm::ivec2(5, 5), 'o');
 		window.Clear();
 		Input input = window.Input();
 		if (input.close)

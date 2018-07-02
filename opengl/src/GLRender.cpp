@@ -1,5 +1,10 @@
 #include "GLRender.hpp"
 
+IGraphic	*load_opengl(glm::ivec2 mapsize)
+{
+	return new GLRender(mapsize);
+}
+
 GLRender::GLRender(glm::ivec2 mapsize) : _window(800, 800, "GLRender")
 {
 	_data.resize(mapsize.x * mapsize.y * 4);
@@ -21,7 +26,7 @@ GLRender::~GLRender(void)
 	_window.Close();
 }
 
-void	GLRender::Render(glm::ivec2 pos, char c)
+void	GLRender::Draw(glm::ivec2 pos, char c)
 {
 	size_t i = (pos.x + pos.y * _width) * 4;
 
@@ -65,11 +70,11 @@ Input	GLRender::Input(void)
 	if (_window.ShouldClose() || _window.Key(GLFW_KEY_ESCAPE))
 		out.close = true;
 	if (_window.Key('1'))
-		out.key1 = true;
+		out.one = true;
 	if (_window.Key('2'))
-		out.key2 = true;
+		out.two = true;
 	if (_window.Key('3'))
-		out.key3 = true;
+		out.three = true;
 
 	return out;
 }

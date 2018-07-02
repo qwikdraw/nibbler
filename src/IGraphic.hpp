@@ -17,9 +17,11 @@ struct Input
 
 class IGraphic
 {
+protected:
+	IGraphic(void) {}
+	
 public:
-	IGraphic(glm::ivec2 grid_size);
-	virtual ~IGraphic(void) = 0;
+	virtual ~IGraphic(void) {};
 	virtual void Draw(glm::ivec2, char) = 0;
 	virtual void Clear(void) = 0;
 	virtual Input Input(void) = 0;
