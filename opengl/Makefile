@@ -14,8 +14,7 @@ NAME = opengl.dylib
 LIST = GLRender \
 Image2D \
 ShadingProgram \
-Window \
-main \
+Window
 
 SRC_DIR = src
 OBJ_DIR = obj

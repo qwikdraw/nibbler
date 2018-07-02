@@ -63,17 +63,17 @@ Input	GLRender::Input(void)
 {
 	struct Input out = {false, false, false, false, false, false};
 	
-	if (_window.Key(GLFW_KEY_LEFT))
+	if (_window.KeyPress(GLFW_KEY_LEFT))
 		out.left = true;
-	if (_window.Key(GLFW_KEY_RIGHT))
+	if (_window.KeyPress(GLFW_KEY_RIGHT))
 		out.right = true;
-	if (_window.ShouldClose() || _window.Key(GLFW_KEY_ESCAPE))
+	if (_window.ShouldClose() || _window.KeyPress(GLFW_KEY_ESCAPE))
 		out.close = true;
-	if (_window.Key('1'))
+	if (_window.KeyPress('1'))
 		out.one = true;
-	if (_window.Key('2'))
+	if (_window.KeyPress('2'))
 		out.two = true;
-	if (_window.Key('3'))
+	if (_window.KeyPress('3'))
 		out.three = true;
 
 	return out;
