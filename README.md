@@ -27,7 +27,7 @@ extern "C" IGraphic* load(void)
 	return (new <Graphic>());
 }
 ```
-where <Graphic> is the name of the `IGraphic` implementing class.
+where `<Graphic>` is the name of the `IGraphic` implementing class.
 
 
 They are dynamically loaded through dlopen and dlsym  
