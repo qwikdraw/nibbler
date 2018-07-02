@@ -2,7 +2,6 @@
 
 GLRender::GLRender(glm::ivec2 mapsize) : _window(800, 800, "GLRender")
 {
-	glClearColor(0.4, 0.45, 0.7, 1);
 	_data.resize(mapsize.x * mapsize.y * 4);
 	_width = mapsize.x;
 	_height = mapsize.y;
@@ -31,10 +30,28 @@ void	GLRender::Render(glm::ivec2 pos, char c)
 
 void	GLRender::Clear(void)
 {
+	glClearColor(0.1, 0.15, 0.2, 1);
+	_window.Clear();
+
+	float screenAspect = _window.GetAspect();
+	float imageAspect = (float)_width / (float)_height;
+
+	if (screenAspect / imageAspect > 1)
+	{
+		float offset = imageAspect / screenAspect;
+		_window.SetRenderMask((1 - offset) / 2.0f, 0, offset, 1);
+	}
+	else if (screenAspect / imageAspect < 1)
+	{
+		float offset = screenAspect / imageAspect;
+		_window.SetRenderMask(0, (1 - offset) / 2.0f, 1, offset);
+	}
+	glClearColor(0.4, 0.45, 0.7, 1);
 	_window.Clear();
 	_image.Render(_data, _width, _height);
 	_window.Render();
 	std::memset(&_data[0], 0, _width * _height * 4);
+	_window.RemoveRenderMask();
 }
 
 Input	GLRender::Input(void)
