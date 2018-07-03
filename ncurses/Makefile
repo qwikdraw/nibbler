@@ -22,10 +22,10 @@ CC = clang++
 
 CPPFLAGS = -std=c++14 -Wall -Wextra -Werror \
 $(shell pkg-config --cflags glm) \
--O3 -march=native -flto -fPIC \
+-O3 -march=native -fPIC \
 #-g -fsanitize=address -fsanitize=undefined
 
-LDFLAGS = -flto -lncurses -dynamiclib \
+LDFLAGS = -shared -lncurses \
 $(shell pkg-config --libs glm) \
 #-fsanitize=address -fsanitize=undefined
 

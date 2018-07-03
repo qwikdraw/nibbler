@@ -28,7 +28,7 @@ $(shell pkg-config --cflags glm glfw3) \
 -O3 -g -march=native -fPIC \
 #-fsanitize=address -fsanitize=undefined
 
-LDFLAGS = -dynamiclib -shared -framework OpenGl \
+LDFLAGS = -shared -framework OpenGl \
 $(shell pkg-config --libs glfw3) \
 #-fsanitize=address -fsanitize=undefined
 

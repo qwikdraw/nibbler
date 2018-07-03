@@ -22,10 +22,10 @@ CC = clang++
 
 CPPFLAGS = -std=c++14 -Wall -Wextra -Werror \
 $(shell pkg-config --cflags glm sfml-window sfml-graphics sfml-system) \
--O3 -march=native -flto -fPIC \
-#-g -fsanitize=address -fsanitize=undefined
+-O3 -g -march=native -fPIC \
+#-fsanitize=address -fsanitize=undefined
 
-LDFLAGS = -flto -dynamiclib \
+LDFLAGS = -shared \
 $(shell pkg-config --libs glm sfml-window sfml-graphics sfml-system) \
 #-fsanitize=address -fsanitize=undefined
 

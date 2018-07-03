@@ -60,7 +60,12 @@ void	Game::pollInput(void)
 	if (input.right)
 		_dir = Direction::RIGHT;
 	if (input.close)
+	{
 		running = false;
+		_moveCycle = false;
+		if (_graphic)
+			_graphic->Destroy();
+	}
 	if (input.up)
 		_dir = Direction::UP;
 	if (input.down)

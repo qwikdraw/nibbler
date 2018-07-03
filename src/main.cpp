@@ -18,7 +18,7 @@ int	main(int argc, char** argv)
 	glm::ivec2 mapsize = {std::atoi(argv[1]), std::atoi(argv[2])};
 	if (mapsize.x < 10 || mapsize.y < 10 || mapsize.x > 50 || mapsize.y > 50)
 	{
-		std::cerr << "nibbler: invalid map dimensions: " 
+		std::cerr << "nibbler: invalid map dimensions: "
 			<< argv[1] << ", " << argv[2] << std::endl;
 		error_usage();
 	}
