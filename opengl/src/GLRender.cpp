@@ -29,7 +29,7 @@ void	GLRender::Destroy(void)
 
 void	GLRender::Draw(glm::ivec2 pos, char c)
 {
-	size_t i = (pos.x + pos.y * _width) * 4;
+	size_t i = (pos.x + (_height - pos.y - 1) * _width) * 4;
 
 	std::memmove(&_data[i], &_colors[(unsigned char)c], 4);
 }
