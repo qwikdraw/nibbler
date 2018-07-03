@@ -25,10 +25,10 @@ CC = clang++
 
 CPPFLAGS = -std=c++14 -Wall -Wextra -Werror \
 $(shell pkg-config --cflags glm glfw3) \
--O3 -march=native -flto -fPIC \
-#-g -fsanitize=address -fsanitize=undefined
+-O3 -g -march=native -fPIC \
+#-fsanitize=address -fsanitize=undefined
 
-LDFLAGS = -flto -dynamiclib -framework OpenGl \
+LDFLAGS = -dynamiclib -shared -framework OpenGl \
 $(shell pkg-config --libs glfw3) \
 #-fsanitize=address -fsanitize=undefined
 

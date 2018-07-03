@@ -9,6 +9,8 @@ struct Input
 {
 	bool	left;
 	bool	right;
+	bool	up;
+	bool	down;
 	bool	close;
 	bool	one;
 	bool	two;
@@ -25,4 +27,5 @@ public:
 	virtual void Draw(glm::ivec2, char) = 0;
 	virtual void Display(void) = 0;
 	virtual Input Input(void) = 0;
+	virtual void Destroy(void) = 0; // Object self deletes, do not use after this.
 };

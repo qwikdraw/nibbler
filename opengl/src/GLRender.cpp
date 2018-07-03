@@ -1,6 +1,6 @@
 #include "GLRender.hpp"
 
-IGraphic	*load(glm::ivec2 mapsize)
+extern "C"	IGraphic	*load(glm::ivec2 mapsize)
 {
 	return new GLRender(mapsize);
 }
@@ -21,9 +21,10 @@ GLRender::GLRender(glm::ivec2 mapsize) : _window(800, 800, "OpenGL")
 	}
 }
 
-GLRender::~GLRender(void)
+void	GLRender::Destroy(void)
 {
 	_window.Close();
+	delete this;
 }
 
 void	GLRender::Draw(glm::ivec2 pos, char c)
@@ -61,12 +62,16 @@ void	GLRender::Display(void)
 
 Input	GLRender::Input(void)
 {
-	struct Input out = {false, false, false, false, false, false};
+	struct Input out = {false, false, false, false, false, false, false, false};
 	
 	if (_window.KeyPress(GLFW_KEY_LEFT))
 		out.left = true;
 	if (_window.KeyPress(GLFW_KEY_RIGHT))
 		out.right = true;
+	if (_window.KeyPress(GLFW_KEY_UP))
+		out.up = true;
+	if (_window.KeyPress(GLFW_KEY_DOWN))
+		out.down = true;
 	if (_window.ShouldClose() || _window.KeyPress(GLFW_KEY_ESCAPE))
 		out.close = true;
 	if (_window.KeyPress('1'))

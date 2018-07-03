@@ -5,11 +5,6 @@
 #include "Image2D.hpp"
 #include "../../src/IGraphic.hpp"
 
-extern "C"
-{
-	IGraphic* load(glm::ivec2 mapsize);
-}
-
 class	GLRender : public IGraphic
 {
 
@@ -21,11 +16,9 @@ class	GLRender : public IGraphic
 	uint32_t _colors[255];
 	
 public:
-
 	GLRender(glm::ivec2 mapsize);
-	~GLRender(void);
-	
 	void	Draw(glm::ivec2 pos, char c);
 	void	Display(void);
 	struct Input	Input(void);
+	void	Destroy(void);
 };

@@ -24,12 +24,12 @@ CC = clang++
 SUB = ncurses sfml opengl
 
 CPPFLAGS = -std=c++14 -Wall -Wextra -Werror \
--O3 -march=native -flto \
-$(shell pkg-config --cflags glm)
-#-g -fsanitize=address -fsanitize=undefined
+-O3 -g -march=native \
+$(shell pkg-config --cflags glm) \
+# -fsanitize=address -fsanitize=undefined
 
-LDFLAGS = -flto \
-$(shell pkg-config --libs glm)
+LDFLAGS = \
+$(shell pkg-config --libs glm) \
 #-fsanitize=address -fsanitize=undefined
 
 all: $(OBJ_DIR) $(NAME)
