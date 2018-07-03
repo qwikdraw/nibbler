@@ -1,18 +1,21 @@
 #include "Game.hpp"
 
-Game::Game(glm::ivec2 mapsize) : _mapsize(mapsize), _board(mapsize.y, std::vector<char>(mapsize.x))
+Game::Game(glm::ivec2 mapsize) : _mapsize(mapsize), _board(mapsize.y, std::vector<char>(mapsize.x, ' '))
 {
 	_graphic = NULL;
 	_handle = NULL;
 	_lib = LIB_NONE;
 	loadlib(LIB_OPENGL);
 	running = true;
-	_dir = Direction::LEFT;
+	_snakeDir = Direction::LEFT;
 	_cycleTime = 0.2;
-	_snake.push_back(Segment{3, 0, 'O'});
-	_snake.push_back(Segment{4, 0, '#'});
-	_snake.push_back(Segment{5, 0, '#'});
+//	int x;
+//	int y;
+	_snake.push_back(Segment{7, 5, 'O'});
+	_snake.push_back(Segment{8, 5, '#'});
+	_snake.push_back(Segment{9, 5, '#'});
 	_moveCycle = false;
+	_board[7][7] = '@';
 }
 
 Game::~Game(void)
@@ -55,32 +58,30 @@ void	Game::loadlib(Libs lib)
 void	Game::pollInput(void)
 {
 	Input input = _graphic->Input();
-	if (input.left)
+	if (input.left && (_snakeDir == Direction::UP || _snakeDir == Direction::DOWN))
 		_dir = Direction::LEFT;
-	if (input.right)
+	if (input.right && (_snakeDir == Direction::UP || _snakeDir == Direction::DOWN))
 		_dir = Direction::RIGHT;
+	if (input.up && (_snakeDir == Direction::LEFT || _snakeDir == Direction::RIGHT))
+		_dir = Direction::UP;
+	if (input.down && (_snakeDir == Direction::LEFT || _snakeDir == Direction::RIGHT))
+		_dir = Direction::DOWN;
 	if (input.close)
 	{
 		running = false;
 		_moveCycle = false;
-		if (_graphic)
-			_graphic->Destroy();
 	}
-	if (input.up)
-		_dir = Direction::UP;
-	if (input.down)
-		_dir = Direction::DOWN;
 	if (input.one)
 		loadlib(LIB_OPENGL);
 	else if (input.two)
 		loadlib(LIB_NCURSES);
 	else if (input.three)
 		loadlib(LIB_SFML);
-	_clock.Step();
-	if (_clock.Total() - _lastCycleTime > _cycleTime)
+	clock.Step();
+	if (clock.Total() - _lastCycleTime > _cycleTime)
 	{
 		_moveCycle = true;
-		_lastCycleTime = _clock.Total();
+		_lastCycleTime = clock.Total();
 	}
 }
 
@@ -94,11 +95,7 @@ void	Game::render(void)
 	{
 		int x = 0;
 		for (char& c : line)
-		{
-			_graphic->Draw(glm::ivec2(x, y), c);
-			c = ' ';
-			++x;
-		}
+			_graphic->Draw(glm::ivec2(x++, y), c);
 		++y;
 	}
 	_graphic->Display();
@@ -106,30 +103,51 @@ void	Game::render(void)
 
 void	Game::move(void)
 {
+	if (_dir == Direction::LEFT && _snakeDir != Direction::RIGHT)
+		_snakeDir = _dir;
+	if (_dir == Direction::RIGHT && _snakeDir != Direction::LEFT)
+		_snakeDir = _dir;
+	if (_dir == Direction::UP && _snakeDir != Direction::DOWN)
+		_snakeDir = _dir;
+	if (_dir == Direction::DOWN && _snakeDir != Direction::UP)
+		_snakeDir = _dir;
+	_board[_snake.back().y][_snake.back().x] = ' ';
 	_snake.pop_back();
 	_snake.front().type = '#';
 	int x = _snake.front().x;
 	int y = _snake.front().y;
-	switch (_dir)
+	Segment new_head;
+	switch (_snakeDir)
 	{
 		case Direction::RIGHT:
-			_snake.push_front(Segment{x + 1, y, 'O'}); break;
+			new_head = Segment{x + 1, y, 'O'}; break;
 		case Direction::LEFT:
-			_snake.push_front(Segment{x - 1, y, 'O'}); break;
+			new_head = Segment{x - 1, y, 'O'}; break;
 		case Direction::UP:
-			_snake.push_front(Segment{x, y - 1, 'O'}); break;
+			new_head = Segment{x, y - 1, 'O'}; break;
 		case Direction::DOWN:
-			_snake.push_front(Segment{x, y + 1, 'O'}); break;
+			new_head = Segment{x, y + 1, 'O'}; break;
 		default: break;
 	}
+	if (new_head.x < 0 || new_head.y < 0 || new_head.x >= _mapsize.x || new_head.y >= _mapsize.y
+	|| _board[new_head.y][new_head.x] == '#')
+	{
+		running = false;
+	}
+	else
+		_snake.push_front(new_head);
 }
 
 void	Game::Run(void)
 {
 	render();
 	pollInput();
-	if (!_moveCycle)
-		return;
-	_moveCycle = false;
-	move();
+	if (_moveCycle)
+	{
+		//_cycleTime -= 1.01;
+		_moveCycle = false;
+		move();
+	}
+	if (!running && _graphic)
+		_graphic->Destroy();
 }

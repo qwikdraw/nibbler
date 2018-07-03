@@ -29,7 +29,6 @@ enum class Direction{UP, RIGHT, DOWN, LEFT};
 class	Game
 {
 	glm::ivec2 _mapsize;
-	Time _clock;
 	double _lastCycleTime;
 	double _cycleTime;
 	bool _moveCycle;
@@ -37,6 +36,7 @@ class	Game
 	Libs _lib;
 	void* _handle;
 	Direction _dir;
+	Direction _snakeDir;
 	std::list<Segment> _snake;
 	std::vector<std::vector<char>> _board;
 
@@ -45,6 +45,7 @@ class	Game
 	void	move(void);
 	void	render(void);
 public:
+	Time clock;
 	bool running;
 	Game(glm::ivec2 mapsize);
 	~Game(void);

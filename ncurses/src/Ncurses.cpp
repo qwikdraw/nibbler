@@ -57,7 +57,7 @@ void	Ncurses::Draw(glm::ivec2 pos, char c)
 		palete = 2;
 	else if (c == '@')
 		palete = 3;
-	else if (c == '%')
+	else if (c == 'x')
 		palete = 4;
 
 	attron(COLOR_PAIR(palete));

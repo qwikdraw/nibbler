@@ -27,5 +27,8 @@ int	main(int argc, char** argv)
 	
 	while (game.running)
 		game.Run();
+	std::cout
+		<< "Game Over\n"
+		<< "Your score: " << game.clock.Total() << std::endl;
 	return 0;
 }
