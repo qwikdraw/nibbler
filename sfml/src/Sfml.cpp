@@ -9,8 +9,10 @@ Sfml::Sfml(glm::ivec2 mapsize) : _mapsize(mapsize)
 {
 	sf::ContextSettings settings;
 	settings.antialiasingLevel = 8;
-	_window = new sf::RenderWindow(sf::VideoMode(1600, 1600), "Sfml", sf::Style::Default, settings);
-	_square = sf::RectangleShape(sf::Vector2f(20, 20));
+	_window = new sf::RenderWindow(sf::VideoMode(50 * mapsize.x, 50 * mapsize.y),
+				       "Sfml", sf::Style::Default, settings);
+	_square = sf::RectangleShape(sf::Vector2f(50, 50));
+	_window->requestFocus();
 }
 
 void	Sfml::Draw(glm::ivec2 pos, char c)
@@ -23,14 +25,14 @@ void	Sfml::Draw(glm::ivec2 pos, char c)
 		_square.setFillColor(sf::Color(250, 100, 50));
 	else if (c == '@')
 		_square.setFillColor(sf::Color(250, 250, 0));
-	_square.setPosition(pos.x * 20, pos.y * 20);
+	_square.setPosition(pos.x * 50, pos.y * 50);
 	_window->draw(_square);
 }
 
 void	Sfml::Display(void)
 {
 	_window->display();
-	_window->clear();
+	_window->clear(sf::Color(50, 100, 150, 255));
 }
 
 struct Input	Sfml::Input(void)
