@@ -144,7 +144,7 @@ void	Game::Run(void)
 	pollInput();
 	if (_moveCycle)
 	{
-		//_cycleTime -= 1.01;
+		_cycleTime = pow(_cycleTime, 1 + pow(_cycleTime, 4));
 		_moveCycle = false;
 		move();
 	}

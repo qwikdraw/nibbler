@@ -14,11 +14,14 @@ GLRender::GLRender(glm::ivec2 mapsize) : _window(800, 800, "OpenGL")
 	// assigning each character a 'random' color
 	for (size_t i = 0; i < 255; i++)
 	{
-		_colors[i] = (i * 1772) % 255 +
-			256 * ((i * 97) % 255) +
-			256 * 256 * ((i * 589) % 255) +
-			(size_t)256 * 256 * 256 * 255;
+		_colors[i] = 256 * 256 * 256 * ((i * 1172) % 255) +
+			256 * ((i * 57) % 255) +
+			256 * 256 * ((i * 389) % 255) +
+			255;
 	}
+	_colors[(int)'#'] = 0xff222222;
+	_colors[(int)'O'] = 0xff337733;
+	_colors[(int)'@'] = 0xff333377;
 }
 
 void	GLRender::Destroy(void)
