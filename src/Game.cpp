@@ -16,6 +16,7 @@ Game::Game(glm::ivec2 mapsize) : _mapsize(mapsize), _board(mapsize.y, std::vecto
 	_snake.push_back(Segment{9, 5, '#'});
 	_moveCycle = false;
 	_board[7][7] = '@';
+	srand(time(NULL));
 }
 
 Game::~Game(void)
@@ -101,6 +102,27 @@ void	Game::render(void)
 	_graphic->Display();
 }
 
+void	Game::spawnFood(void)
+{
+	int empty_squares = (_mapsize.x * _mapsize.y) - _snake.size();
+	int target = rand() % empty_squares - 1;
+	for (std::vector<char>& line : _board)
+	{
+		for (char& c : line)
+		{
+			if (c != ' ')
+				continue;
+			--target;
+			if (target <= 0)
+			{
+				c = '@';
+				return;
+			}
+		}
+	}
+	
+}
+
 void	Game::move(void)
 {
 	if (_dir == Direction::LEFT && _snakeDir != Direction::RIGHT)
@@ -111,31 +133,39 @@ void	Game::move(void)
 		_snakeDir = _dir;
 	if (_dir == Direction::DOWN && _snakeDir != Direction::UP)
 		_snakeDir = _dir;
-	_board[_snake.back().y][_snake.back().x] = ' ';
-	_snake.pop_back();
+	if (_snakeGrow <= 0)
+	{
+		_board[_snake.back().y][_snake.back().x] = ' ';
+		_snake.pop_back();
+	}
+	else
+		_snakeGrow -= 1;
 	_snake.front().type = '#';
 	int x = _snake.front().x;
 	int y = _snake.front().y;
-	Segment new_head;
 	switch (_snakeDir)
 	{
 		case Direction::RIGHT:
-			new_head = Segment{x + 1, y, 'O'}; break;
+			++x; break;
 		case Direction::LEFT:
-			new_head = Segment{x - 1, y, 'O'}; break;
+			--x; break;
 		case Direction::UP:
-			new_head = Segment{x, y - 1, 'O'}; break;
+			--y; break;
 		case Direction::DOWN:
-			new_head = Segment{x, y + 1, 'O'}; break;
+			++y; break;
 		default: break;
 	}
-	if (new_head.x < 0 || new_head.y < 0 || new_head.x >= _mapsize.x || new_head.y >= _mapsize.y
-	|| _board[new_head.y][new_head.x] == '#')
+	if (x < 0 || y < 0 || x >= _mapsize.x || y >= _mapsize.y || _board[y][x] == '#')
 	{
 		running = false;
+		return;
 	}
-	else
-		_snake.push_front(new_head);
+	if (_board[y][x] == '@')
+	{
+		spawnFood();
+		_snakeGrow += 2;
+	}
+	_snake.push_front(Segment{x, y, 'O'});
 }
 
 void	Game::Run(void)

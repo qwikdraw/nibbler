@@ -32,18 +32,22 @@ class	Game
 	double _lastCycleTime;
 	double _cycleTime;
 	bool _moveCycle;
-	IGraphic* _graphic;
 	Libs _lib;
 	void* _handle;
-	Direction _dir;
-	Direction _snakeDir;
-	std::list<Segment> _snake;
+	IGraphic* _graphic;
 	std::vector<std::vector<char>> _board;
+
+	// Snake
+	Direction _dir;
+	std::list<Segment> _snake;
+	Direction _snakeDir;
+	int _snakeGrow;
 
 	void	loadlib(Libs);
 	void	pollInput(void);
 	void	move(void);
 	void	render(void);
+	void	spawnFood(void);
 public:
 	Time clock;
 	bool running;
