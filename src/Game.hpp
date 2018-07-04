@@ -36,6 +36,7 @@ class	Game
 	void* _handle;
 	IGraphic* _graphic;
 	std::vector<std::vector<char>> _board;
+	Time _clock;
 
 	// Snake
 	Direction _dir;
@@ -49,9 +50,9 @@ class	Game
 	void	render(void);
 	void	spawnFood(void);
 public:
-	Time clock;
 	bool running;
 	Game(glm::ivec2 mapsize);
 	~Game(void);
 	void	Run(void);
+	int score;
 };

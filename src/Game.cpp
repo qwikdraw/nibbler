@@ -7,13 +7,15 @@ Game::Game(glm::ivec2 mapsize) : _mapsize(mapsize), _board(mapsize.y, std::vecto
 	_lib = LIB_NONE;
 	loadlib(LIB_OPENGL);
 	running = true;
-	_snakeDir = Direction::LEFT;
+	_snakeDir = Direction::UP;
+	_dir = Direction::UP;
 	_cycleTime = 0.2;
-//	int x;
-//	int y;
-	_snake.push_back(Segment{7, 5, 'O'});
-	_snake.push_back(Segment{8, 5, '#'});
-	_snake.push_back(Segment{9, 5, '#'});
+	int x = mapsize.x / 2;
+	int y = mapsize.y / 2;
+	_snake.push_back(Segment{x, y, 'O'});
+	_snake.push_back(Segment{x, y + 1, '#'});
+	_snake.push_back(Segment{x, y + 2, '#'});
+	_snake.push_back(Segment{x, y + 3, '#'});
 	_moveCycle = false;
 	_board[7][7] = '@';
 	srand(time(NULL));
@@ -78,11 +80,11 @@ void	Game::pollInput(void)
 		loadlib(LIB_NCURSES);
 	else if (input.three)
 		loadlib(LIB_SFML);
-	clock.Step();
-	if (clock.Total() - _lastCycleTime > _cycleTime)
+	_clock.Step();
+	if (_clock.Total() - _lastCycleTime > _cycleTime)
 	{
 		_moveCycle = true;
-		_lastCycleTime = clock.Total();
+		_lastCycleTime = _clock.Total();
 	}
 }
 
@@ -164,6 +166,7 @@ void	Game::move(void)
 	{
 		spawnFood();
 		_snakeGrow += 2;
+		++score;
 	}
 	_snake.push_front(Segment{x, y, 'O'});
 }
